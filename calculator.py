@@ -9,11 +9,11 @@ op = {
 
 
 # part1 prefix calculator
-def calculate_prefix(expresion):
+def calculate_prefix(expression):
     result = []
-    expresion = expresion.strip().split(' ')
+    expression = expression.strip().split(' ')
 
-    for e in reversed(expresion):
+    for e in reversed(expression):
         if e.isdigit():
             result.append(int(e))
         else:
