@@ -17,11 +17,14 @@ def calculate_prefix(expresion):
         if e.isdigit():
             result.append(int(e))
         else:
+            if len(result) < 2:
+                return None
             n1 = result.pop()
             n2 = result.pop()
             val = op[e](n1, n2)
             result.append(val)
-    return result
+
+    return result[0] if len(result) == 1 else None
 
 
 # part2 infix to prefex
@@ -30,5 +33,6 @@ def infix_to_prefix(input):
 
 
 if __name__ == '__main__':
-    prefix_input = '- / 10 + 1 1 * 1 2'
-    calculate_prefix(prefix_input)
+    prefix_input = '- / 10 + 1 1 * 1 '
+    out = calculate_prefix(prefix_input)
+    print(out)
