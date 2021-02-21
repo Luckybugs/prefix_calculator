@@ -18,7 +18,7 @@ def calculate_prefix(expression):
             result.append(int(e))
         else:
             if len(result) < 2:
-                return None
+                continue
             n1 = result.pop()
             n2 = result.pop()
             val = op[e](n1, n2)
@@ -27,12 +27,42 @@ def calculate_prefix(expression):
     return result[0] if len(result) == 1 else None
 
 
+pres = {'*': 2, '/': 2, '+': 1, '-': 1, '(': 0, ')': 0}
+
+
 # part2 infix to prefex
-def infix_to_prefix(input):
-    pass
+def infix_to_prefix(expression):
+    expression = expression.strip().split(' ')
+    stack, res = [], []
+    pop = None
+
+    for e in reversed(expression):
+        if e.isdigit():
+            res.append(e)
+        elif e == ')':
+            stack.append(e)
+        elif e == '(':
+            # remove all up to the closing )
+            pop = stack.pop
+            while pop != ')':
+                pop = stack.pop()
+                if pop != ')':
+                    res.append(pop)
+        else:
+            while len(stack) > 0 and pres[e] < pres[stack[-1]]:
+                o = stack.pop()
+                res.append(o)
+            stack.append(e)
+
+    res.extend(stack)
+    res.reverse()
+    res = ' '.join(map(str, res))  #convert to string
+    return res
 
 
 if __name__ == '__main__':
-    prefix_input = '- / 10 + 1 1 * 1 '
+
+    infix_input = ' ( ( ( 1 + 1 ) / 10 ) - ( 1 * 2 ) )'
+    prefix_input = infix_to_prefix(infix_input)
     out = calculate_prefix(prefix_input)
     print(out)
