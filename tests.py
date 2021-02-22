@@ -1,8 +1,8 @@
 import unittest
 
-from calculator import prefix_eval
+from calculator import prefix_eval, infix_to_prefix
 
-class TestPrefexEval(unittest.TestCase):
+class TestCalculator(unittest.TestCase):
     def test_1(self):
         input =' + 3 4 '
         result = prefix_eval(input)
@@ -22,6 +22,21 @@ class TestPrefexEval(unittest.TestCase):
         input = '- 12 * 2 6'
         result = prefix_eval(input)
         self.assertEqual(result, 0)
+
+    def test_5(self):
+        input = '( 1 + 2 )'
+        result = infix_to_prefix(input)
+        self.assertEqual(result, '+ 1 2')
+    
+    def test_6(self):
+        input = '( ( 1 * 2 ) + 3 )'
+        result = infix_to_prefix(input)
+        self.assertEqual(result, '+ * 1 2 3')
+
+    def test_7(self):
+        input = '( ( ( 1 + 1 ) / 10 ) )'
+        result = infix_to_prefix(input)
+        self.assertEqual(result, '+ * 1 2 3')
 
 
 if __name__ == '__main__':
