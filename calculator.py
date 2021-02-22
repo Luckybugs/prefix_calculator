@@ -25,15 +25,17 @@ def evaluate_rec(expr_iter):
 # part2 infix to prefex    
 def infix_to_prefix(expr):
     result = convert_rec(expr.replace(' ', ''))
-    return result.replace('', ' ')
+    return result.replace('', ' ')[1:-1]
 
 def convert_rec(expr):
+    #TODO add support for digits longer than 1 character ie. 10
 
     # Single element. It can not be split in two parts
     if len(expr) == 1 and '(' not in expr and ')' not in expr:
         return expr
     else:
         # The first character is a bracket, which means that the first part is expression in parentheses
+        print(expr)
         if expr[0] == '(':
             i = 1
             t = 1
@@ -65,7 +67,7 @@ def convert_rec(expr):
 
 if __name__ == '__main__':
     
-    i_expr = '( ( 1 * 2 ) + 3 )'
+    i_expr = '( ( ( 1 + 1 ) / 7 ) )'
     # Convert a infix to prefix
     p_expr =infix_to_prefix(i_expr)
     print(p_expr)
