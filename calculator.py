@@ -8,23 +8,17 @@ op = {
 }
 
 
-# part1 prefix calculator
-def calculate_prefix(expression):
-    result = []
-    expression = expression.strip().split(' ')
+def prefix_eval(expr):
+    return evaluate_rec(iter(expr.split()))
 
-    for e in reversed(expression):
-        if e.isdigit():
-            result.append(int(e))
-        else:
-            if len(result) < 2:
-                continue
-            n1 = result.pop()
-            n2 = result.pop()
-            val = op[e](n1, n2)
-            result.append(val)
+def evaluate_rec(expr_iter):
+    elem = next(expr_iter)
+    if elem.isdigit():
+        return int(elem)
 
-    return result[0] if len(result) == 1 else None
+    op1 = evaluate_rec(expr_iter)
+    op2 = evaluate_rec(expr_iter)
+    return op[elem](op1, op2)
 
 
 pres = {'*': 2, '/': 2, '+': 1, '-': 1, '(': 0, ')': 0}
@@ -64,5 +58,5 @@ if __name__ == '__main__':
 
     infix_input = ' ( ( ( 1 + 1 ) / 10 ) - ( 1 * 2 ) )'
     prefix_input = infix_to_prefix(infix_input)
-    out = calculate_prefix(prefix_input)
+    out =  prefix_eval(prefix_input)
     print(out)
