@@ -39,6 +39,6 @@ python3 tests.py
 ## Notes:
 
 - current solution for infix to prefix notation is NOT supporting multiple digit operands.(i.e a 12 somewhere in exppression will fail). Next step is to implement a solution with a list and space-separated tokens.
-- handle exceptions
+- add exceptions handling
 - Add function to chek if its a valid expression.
 - Add more tests for non valid imputs.
