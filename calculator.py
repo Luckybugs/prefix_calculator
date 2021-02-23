@@ -56,7 +56,7 @@ def convert_rec(expr):
                 oper = ''
                 oper = oper + expr[t]
                 tail = expr[t + 1:]
-                return oper + '' + convert_rec(head) + convert_rec(tail)
+                return oper + convert_rec(head) + convert_rec(tail)
         # head is a single number and the operator in the middle of the two parts
         else:
             head = ''
